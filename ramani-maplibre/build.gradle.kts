@@ -84,51 +84,54 @@ dependencies {
     androidTestImplementation(libs.androidx.activity.compose)
 }
 
-if (keystoreProperties.containsKey("centralUsername") && keystoreProperties.containsKey("centralPassword")) {
-    publishing {
-        publications {
-            create<MavenPublication>("release") {
-                afterEvaluate {
-                    from(components["release"])
-                }
+publishing {
+    publications {
+        create<MavenPublication>("release") {
+            afterEvaluate {
+                from(components["release"])
+            }
 
-                pom {
-                    name = "Ramani-Maplibre"
-                    packaging = "aar"
-                    description = "An Android Compose library to manipulate MapLibre maps."
-                    url = "https://github.com/ramani-maps/ramani-maps"
+            pom {
+                name = "Ramani-Maplibre"
+                packaging = "aar"
+                description = "An Android Compose library to manipulate MapLibre maps."
+                url = "https://github.com/ramani-maps/ramani-maps"
 
-                    scm {
+                scm {
                     connection = "scm:git:https://github.com/ramani-maps/ramani-maps"
                     developerConnection = "scm:git:https://github.com/ramani-maps/ramani-maps"
                     url = "https://github.com/ramani-maps/ramani-maps"
-                    }
+                }
 
-                    licenses {
-                        license {
-                            name = "Mozilla Public License 2.0"
-                            url = "https://spdx.org/licenses/MPL-2.0.html"
-                        }
+                licenses {
+                    license {
+                        name = "Mozilla Public License 2.0"
+                        url = "https://spdx.org/licenses/MPL-2.0.html"
                     }
+                }
 
-                    developers {
-                        developer {
-                            id = "romanbapst"
-                            name = "Roman Bapst"
-                            email = "bapstroman@gmail.com"
-                        }
-                        developer {
-                            id = "jonasvautherin"
-                            name = "Jonas Vautherin"
-                            email = "dev@jonas.vautherin.ch"
-                        }
+                developers {
+                    developer {
+                        id = "romanbapst"
+                        name = "Roman Bapst"
+                        email = "bapstroman@gmail.com"
+                    }
+                    developer {
+                        id = "jonasvautherin"
+                        name = "Jonas Vautherin"
+                        email = "dev@jonas.vautherin.ch"
                     }
                 }
             }
         }
+    }
+}
+
+if (keystoreProperties.containsKey("centralUsername") && keystoreProperties.containsKey("centralPassword")) {
+    publishing {
         repositories {
             maven {
-               url = uri(layout.buildDirectory.dir("target/staging-deploy"))
+                url = uri(layout.buildDirectory.dir("target/staging-deploy"))
             }
         }
     }
